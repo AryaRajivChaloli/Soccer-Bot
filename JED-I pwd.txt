@@ -1,0 +1,12 @@
+ssh ajua@192.168.43.99
+User_name:ajua
+pwd:ajua@e14
+
+nano Assn.py
+python Assn.py
+sudo shutdown -h now
+
+website for installation of hardware/software components:
+	"instructables"
+166
+ssh ajua@192.168.43.166

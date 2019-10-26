@@ -1,0 +1,39 @@
+# To make a counter using an LDR which glows an ... 
+# led when an object passes in front of it and ...
+# also tallies a count which is displayed as soon ...
+# as it recieves a keboard interrupt .
+
+
+import time
+import Adafruit_ADS1x15
+import wiringpi as wp
+
+led=18
+count=0
+GAIN=1
+
+def setup():
+	adc=Adafruit_ADS1x15.ADS1115()
+	wp.wiringPiSetupGpio()
+	wp.pinMode(led,1)
+	
+
+def count_func():
+	while True:
+		wp.digitalWrite(led,0)
+		value=adc.read_adc(0,gain=1)
+		if value<9000:
+			wp.digitalWrite(led,1)
+			while value<9000:
+				value=adc.read_adc(0,gain=1)
+				time.sleep(0.5)
+			count+=1	
+		time.sleep(0.5)
+
+if __name__ == '__main__' :
+	setup()
+	try:
+		count_func()
+	except KeyboardInterrupt:
+		wp.digitalWrite(led,0)
+		print count
